@@ -1,6 +1,6 @@
 # Terme Examples
 
-Some demo games developed usinng [Terme](https://github.com/nico-bertoli/terme), the terminal game engine I developed.
+Some demo games developed using [Terme](https://github.com/nico-bertoli/terme), the terminal game engine I developed.
 
 Trailer available [here](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli) <br><br>
 
