@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Level sources
-file(GLOB PLATFORMER_SRC "terme_examples/Platformer/*.cpp")
-file(GLOB PONG_SRC "terme_examples/Pong/*.cpp")
-file(GLOB SPACE_INVADERS_SRC "terme_examples/SpaceInvaders/*.cpp")
+file(GLOB PLATFORMER_SRC "terme_examples/platformer/*.cpp")
+file(GLOB PONG_SRC "terme_examples/pong/*.cpp")
+file(GLOB SPACE_INVADERS_SRC "terme_examples/space_invaders/*.cpp")
 
 # Main sources
 file(GLOB ENGINE_DEMO_SRC "terme_examples/*.cpp")
@@ -22,9 +22,9 @@ add_executable(
 )
 
 #------------------- link levels
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/Platformer)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/Pong)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/SpaceInvaders)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/platformer)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/pong)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/space_invaders)
 
 #---------------------------------------- nbkit
 include(FetchContent)
@@ -66,13 +66,13 @@ target_link_libraries(${PROJECT_NAME} terme)
 # resources folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources"
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
 )
 
 # remove all files from persistence folder
 add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Persistence
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Persistence
-    COMMENT "Deleting all files inside Resources/Persistence before build"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/persistence
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/persistence
+    COMMENT "Deleting all files inside resources/Persistence before build"
 )
