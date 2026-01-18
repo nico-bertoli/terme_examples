@@ -1,0 +1,61 @@
+# CMake
+**/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Visual Studio
+.vscode/
+*.code-workspace
+
+# Ignore common C++ intermediate and output files
+*.obj
+*.o
+*.so
+*.a
+*.lib
+*.exe
+*.idb
+*.ipdb
+*.iobj
+*.pch
+*.ipch
+*.pdb
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.log
+*.vspscc
+*.vssscc
+*.csv
+
+# Ignore cache files
+*.cache
+*.ilk
+
+# Ignore test results and coverage
+*.gcda
+*.gcno
+*.gcov
+*.prof
+*.profraw
+*.profdata
+*.info
+*.coverage
+*.coveragexml
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Ignore editor and IDE config files
+*.DS_Store
+*.idea/
+*.vscode/
+*.code-workspace
