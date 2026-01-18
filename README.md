@@ -1,13 +1,8 @@
-An engine for creating 2D terminal-based games, built without any graphics libraries.
+# Terme Examples
 
-- Cross platform (Linux/Windows)
-- Framerate-independent simulation (delta-time based)
-- Particle system
-- Collision system (OnCollisionEnter/Exit)
-- Sorting order system 
-- Backgrounds support
+This project contains some demo games developed usinng [Terme](https://github.com/nico-bertoli/terme), the terminal game engine i developed.
 
-[Youtube Trailer](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli)
+You can checkout the [youtube trailer here](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli)
 
 <img src="screenshots/screen1.png" style="height:500px; max-width:100%;">
 <img src="screenshots/screen2.png" style="height:250px; max-width:100%;">
