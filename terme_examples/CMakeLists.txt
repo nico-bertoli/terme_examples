@@ -50,7 +50,7 @@ FetchContent_Declare(  # Download library
 FetchContent_MakeAvailable(terme)  # Configure library and make it available
 
 # Link Terme library
-target_link_libraries(${PROJECT_NAME} terme)
+target_link_libraries(${PROJECT_NAME} PRIVATE terme)
 
 #------------------- copy files to build directory
 # set(SFML_DIR "${CMAKE_CURRENT_SOURCE_DIR}/terme_examples/Dependencies/SFML")
