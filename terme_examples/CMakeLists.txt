@@ -1,40 +1,31 @@
-#----------------------- base configuration
-cmake_minimum_required(VERSION 3.22)
-project(terme_examples VERSION 1.0.0)
+cmake_minimum_required(VERSION 3.15)
+project(terme_examples)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 17)
 
-#----------------------- sources
-file(GLOB_RECURSE SRC "terme_examples/*.cpp")
-
-add_executable(
-    ${PROJECT_NAME}
-    ${SRC}
-)
-#------------------- link levels
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/platformer)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/pong)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/terme_examples/space_invaders)
-
-#--------------------------------------------- conan linking
-find_package(nbkit REQUIRED)
 find_package(terme REQUIRED)
+find_package(nbkit REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE nbkit::nbkit terme::terme)
+if(UNIX AND NOT APPLE)
+    find_package(X11 REQUIRED)
+endif()
 
-#------------------- copy files to build directory
-# remove all files from persistence folder
-add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/persistence
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/persistence
-    COMMENT "Deleting all files inside resources/Persistence before build"
+set(TERME_EXAMPLES_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/terme_examples")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "${TERME_EXAMPLES_SRC_DIR}/*.cpp")
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE
+    "${TERME_EXAMPLES_SRC_DIR}"
+    "${TERME_EXAMPLES_SRC_DIR}/platformer"
+    "${TERME_EXAMPLES_SRC_DIR}/pong"
+    "${TERME_EXAMPLES_SRC_DIR}/space_invaders"
 )
 
-# copy resources to build
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/resources"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
-)
+if(UNIX AND NOT APPLE)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${X11_INCLUDE_DIR})
+endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE terme::terme nbkit::nbkit)
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${X11_LIBRARIES})
+endif()
