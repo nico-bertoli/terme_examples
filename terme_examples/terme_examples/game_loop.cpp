@@ -85,19 +85,14 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
 #endif
     cout << "esc -> return to main menu / quit\n\n";
 
-    cout << "--------------------------- Controls:\n";
+    cout << "Controls: move: wasd, action: space bar";
 
-    cout << "Space invaders:\n";
-    cout << "wasd: move, space bar: shoot\n\n";
 
-    cout << "Bunny:\n";
-    cout << "wasd: move, spacebar: jump\n\n";
-
-    cout << "Pong:\n";
-    cout << "a/d: Player 1 move, left/right arrow: Player 2 move\n\n";
-
-    cout << "--------------------------- Credits:\n";
-    cout << "Music by 'Cody O'Quinn'\n";
+    cout << "\n\n\n\n--------------------------- Credits:\n";
+    cout << "Terme engine github: https://github.com/nico-bertoli/terme\n";
+    cout << "Levels github: https://github.com/nico-bertoli/terme_examples\n";
+    cout << "Developer: https://nico-bertoli.github.io/index.html\n";
+    cout << "Music: https://www.youtube.com/@CodyOQuinn\n";
 
     while (true)
     {
