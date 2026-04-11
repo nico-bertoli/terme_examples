@@ -79,7 +79,7 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
     cout << "4 -> pong (local multiplayer)\n";
 
     Terminal::Instance().SetColor(terme::color::kWhite);
-#if DEBUG_MODE
+#if DEBUG
     cout << "5 -> collisions test\n";
     cout << "6 -> sorting layer test\n";
 #endif
@@ -120,7 +120,7 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
         if (InputManager::Instance().IsKeyPressed(Key::kEsc))
             return nullptr;
 
-#if DEBUG_MODE
+#if DEBUG
         if (InputManager::Instance().IsKeyPressed(Key::kNum5))
             return std::make_unique<Platformer::CollisionsTestLevel>();
             

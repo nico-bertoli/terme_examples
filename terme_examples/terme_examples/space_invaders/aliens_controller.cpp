@@ -56,7 +56,7 @@ namespace SpaceInvaders
 
 	void AliensController::Update()
 	{
-#if DEBUG_MODE
+#if DEBUG
 		string totBoost = "tot boost: " + std::to_string(GetSpeedX());
 		string eliminationsBoost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
 		string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
