@@ -2,6 +2,7 @@
 #include <terme/managers/audio_manager.h>
 #include <terme/core/simulation.h>
 #include <terme/terminal/terminal.h>
+#include <terme/managers/time_manager.h>
 
 #include "game_loop.h"
 #include "terme/config.h"
@@ -26,6 +27,10 @@ GameLoop::GameLoop()
     {
         terme::AudioManager::Instance().StopMusic();
         std::shared_ptr<Level> level = ShowLevelSelection();
+
+        if(level == nullptr)
+            break;
+
         while (true)
         {
             returnToMainMenu = LoopSimulation(level);
@@ -49,8 +54,9 @@ bool GameLoop::LoopSimulation(std::shared_ptr<Level> level)
 
 std::shared_ptr<Level> GameLoop::ShowLevelSelection()
 {
-    Terminal::Instance().Clear();
+    double menu_show_start_time = terme::TimeManager::Instance().GetTime();
 
+    Terminal::Instance().Clear();
     Terminal::Instance().SetColor(terme::color::kWhite);
     cout << "--------------------------- Games:\n";
 
@@ -68,7 +74,7 @@ std::shared_ptr<Level> GameLoop::ShowLevelSelection()
     cout << "5 -> collisions test\n";
     cout << "6 -> sorting layer test\n";
 #endif
-    cout << "esc -> return to main menu\n\n";
+    cout << "esc -> return to main menu / quit\n\n";
 
     cout << "--------------------------- Controls:\n";
 
@@ -86,6 +92,10 @@ std::shared_ptr<Level> GameLoop::ShowLevelSelection()
 
     while (true)
     {
+        //prevent exiting immediatelly after exiting a game (double consecutive esc)
+        if(terme::TimeManager::Instance().GetTime() - menu_show_start_time < 0.2)
+            continue;
+
         if (InputManager::Instance().IsKeyPressed(Key::kNum1))
             return std::make_shared<SpaceInvaders::SpaceInvadersLevel>();
 
@@ -98,6 +108,9 @@ std::shared_ptr<Level> GameLoop::ShowLevelSelection()
         if (InputManager::Instance().IsKeyPressed(Key::kNum4))
             return std::make_shared<Pong::PongLevel>();
         
+        if (InputManager::Instance().IsKeyPressed(Key::kEsc))
+            return nullptr;
+
 #if DEBUG_MODE
         if (InputManager::Instance().IsKeyPressed(Key::kNum5))
             return std::make_shared<Platformer::CollisionsTestLevel>();
