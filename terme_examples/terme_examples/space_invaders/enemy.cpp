@@ -3,13 +3,11 @@
 #include <terme/core/simulation.h>
 #include "space_invaders_level.h"
 
-using std::shared_ptr;
-
 namespace SpaceInvaders
 {
 	void Enemy::OnDestroy()
 	{
-		shared_ptr<SpaceInvadersLevel> level = std::dynamic_pointer_cast<SpaceInvadersLevel>(terme::Simulation::Instance().GetActiveLevel());
+		SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(&terme::Simulation::Instance().GetActiveLevel());
 		assert(level != nullptr);
 		level->IncreasePlayerScore(GetScore());
 		terme::Simulation::Instance().SpawnParticles

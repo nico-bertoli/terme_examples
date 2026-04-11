@@ -15,7 +15,7 @@ namespace SpaceInvaders
 {
     void PlayerTank::Update()
     {
-        if (terme::Simulation::Instance().GetActiveLevel()->IsGameOver())
+        if (terme::Simulation::Instance().GetActiveLevel().IsGameOver())
             return;
 
         HandleMovement();

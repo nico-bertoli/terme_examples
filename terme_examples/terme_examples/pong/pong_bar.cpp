@@ -27,7 +27,7 @@ namespace Pong
 
     void PongBar::Update()
     {
-        if (terme::Simulation::Instance().GetActiveLevel()->IsGameOver())
+        if (terme::Simulation::Instance().GetActiveLevel().IsGameOver())
             return;
 
         if ((is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kA)) || !is_bottom_bar_ && terme::InputManager::Instance().terme::InputManager::Instance().IsKeyPressed(terme::Key::kArrowLeft))

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "terme/entities/level.h"
+#include <memory>
 
 class GameLoop
 {
@@ -8,6 +9,6 @@ class GameLoop
 public:
     GameLoop();
 private:
-    std::shared_ptr<terme::Level> ShowLevelSelection();
-    bool LoopSimulation(std::shared_ptr<terme::Level> level);
+    std::unique_ptr<terme::Level> ShowLevelSelection();
+    bool LoopSimulation(terme::Level& level);
 };

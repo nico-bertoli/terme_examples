@@ -1,3 +1,4 @@
+#include <memory>
 #include <terme/input_manager/input_manager.h>
 #include <terme/managers/audio_manager.h>
 #include <terme/core/simulation.h>
@@ -26,33 +27,41 @@ GameLoop::GameLoop()
     while (true)
     {
         terme::AudioManager::Instance().StopMusic();
-        std::shared_ptr<Level> level = ShowLevelSelection();
+        std::unique_ptr<Level> level = ShowLevelSelection();
 
+        // user wants to quit
         if(level == nullptr)
             break;
 
         while (true)
         {
-            returnToMainMenu = LoopSimulation(level);
+            returnToMainMenu = LoopSimulation(*level);
             if (returnToMainMenu)
                 break;
         }
     }
 }
 
-bool GameLoop::LoopSimulation(std::shared_ptr<Level> level)
+bool GameLoop::LoopSimulation(Level& level)
 {
+    bool return_to_main_menu = false;
     terme::Simulation::Instance().LoadLevel(level);
-    while (level->IsTerminated() == false)
+
+    while (level.IsTerminated() == false)
     {
         terme::Simulation::Instance().Step();
         if (InputManager::Instance().IsKeyPressed(Key::kEsc))
-            return true;
+        {
+            return_to_main_menu = true;
+            break;
+        }
     }
-    return false;
+
+    terme::Simulation::Instance().UnloadLevel();
+    return return_to_main_menu;
 }
 
-std::shared_ptr<Level> GameLoop::ShowLevelSelection()
+std::unique_ptr<Level> GameLoop::ShowLevelSelection()
 {
     double menu_show_start_time = terme::TimeManager::Instance().GetTime();
 
@@ -97,26 +106,26 @@ std::shared_ptr<Level> GameLoop::ShowLevelSelection()
             continue;
 
         if (InputManager::Instance().IsKeyPressed(Key::kNum1))
-            return std::make_shared<SpaceInvaders::SpaceInvadersLevel>();
+            return std::make_unique<SpaceInvaders::SpaceInvadersLevel>();
 
         if (InputManager::Instance().IsKeyPressed(Key::kNum2))
-            return std::make_shared<Platformer::EndlessRunnerLevel>();
+            return std::make_unique<Platformer::EndlessRunnerLevel>();
 
         if (InputManager::Instance().IsKeyPressed(Key::kNum3))
-            return std::make_shared<Platformer::PuzzleLevel>();
+            return std::make_unique<Platformer::PuzzleLevel>();
     
         if (InputManager::Instance().IsKeyPressed(Key::kNum4))
-            return std::make_shared<Pong::PongLevel>();
+            return std::make_unique<Pong::PongLevel>();
         
         if (InputManager::Instance().IsKeyPressed(Key::kEsc))
             return nullptr;
 
 #if DEBUG_MODE
         if (InputManager::Instance().IsKeyPressed(Key::kNum5))
-            return std::make_shared<Platformer::CollisionsTestLevel>();
+            return std::make_unique<Platformer::CollisionsTestLevel>();
             
         if (InputManager::Instance().IsKeyPressed(Key::kNum6))
-            return std::make_shared<Platformer::SortingLayerTestLevel>();
+            return std::make_unique<Platformer::SortingLayerTestLevel>();
 #endif
     }
 }

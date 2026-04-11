@@ -48,7 +48,7 @@ namespace SpaceInvaders
 		is_loading_wave_ = false;
 		double started_loading_wave_time = -1;
 
-		aliens_controller_ = std::make_shared<AliensController>(std::dynamic_pointer_cast<SpaceInvadersLevel>(shared_from_this()));
+		aliens_controller_ = std::make_shared<AliensController>(this);
 		aliens_controller_->on_wave_completed.Subscribe([this]() { OnWaveCompleted(); });
 		aliens_controller_->on_ground_touched.Subscribe([this]() { OnGameOver(); });
 		Simulation::Instance().TryAddEntity(aliens_controller_);

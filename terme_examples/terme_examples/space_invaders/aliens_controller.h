@@ -35,7 +35,7 @@ namespace SpaceInvaders
 		nbkit::Event<> on_ground_touched;
 
 	private:
-		std::shared_ptr<SpaceInvadersLevel> level;
+		SpaceInvadersLevel* level;
 		nbkit::Matrix<std::weak_ptr<Alien>> aliensGrid;
 		AliensFrontline frontLine;
 
@@ -47,8 +47,8 @@ namespace SpaceInvaders
 		double shot_delay_ = 0;
 		//------------------------------------------------------------------- Methods
 	public:
-		AliensController(std::shared_ptr<SpaceInvadersLevel> level) : level(level) {}
-		;	void Reset(int aliens_count_x, int aliens_count_y);
+		AliensController(SpaceInvadersLevel* level) : level(level) {}
+		void Reset(int aliens_count_x, int aliens_count_y);
 		void Update() override;
 		void RegisterAlien(std::shared_ptr<Alien> alien, int x_pos, int y_pos);
 
