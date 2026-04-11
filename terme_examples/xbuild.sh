@@ -1,14 +1,27 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 BUILD_TYPE="Debug"
+USE_LOCAL=0
 
 # ====================================================== parse arguments
-while getopts "rd" opt; do
-  case $opt in
-    r) BUILD_TYPE="Release" ;;
-    d) BUILD_TYPE="Debug" ;;
-    *) echo "Usage: $0 [-r (Release)] [-d (Debug)]"; exit 1 ;;
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -r) BUILD_TYPE="Release" ;;
+    -d) BUILD_TYPE="Debug" ;;
+    --local) USE_LOCAL=1 ;;
+    -h|--help)
+      echo "Usage: $0 [-r (Release)] [-d (Debug)] [--local]"
+      echo "  --local   Build nbkit and terme from ../../nbkit and ../../terme/terme (relative to this script)"
+      exit 0
+      ;;
+    *)
+      echo "Usage: $0 [-r (Release)] [-d (Debug)] [--local]"
+      exit 1
+      ;;
   esac
+  shift
 done
 
 echo "--- Starting Project Build Process ($BUILD_TYPE) ---"
@@ -18,7 +31,17 @@ rm -rf "build/$BUILD_TYPE"
 mkdir -p "build/$BUILD_TYPE"
 cd "build/$BUILD_TYPE" || exit
 
-# ====================================================== helper function
+# ====================================================== helper functions
+create_dep_from_path() {
+    local NAME=$1
+    local VERSION=$2
+    local CREATE_PATH=$3
+
+    echo "[INFO] Creating Conan package $NAME/$VERSION from: $CREATE_PATH"
+    conan create "$CREATE_PATH" --name="$NAME" --version="$VERSION" \
+        -s build_type="$BUILD_TYPE" -s compiler.cppstd=20 --build=missing || exit 1
+}
+
 check_and_create_dep() {
     local NAME=$1
     local VERSION=$2
@@ -30,21 +53,49 @@ check_and_create_dep() {
         echo "[INFO] $NAME NOT found. Downloading from GitHub..."
         TMP_DIR=$(mktemp -d)
         git clone --depth 1 "$REPO" "$TMP_DIR/$NAME"
-        
+
         local CREATE_PATH="$TMP_DIR/$NAME"
         [ -n "$SUBDIR" ] && CREATE_PATH="$CREATE_PATH/$SUBDIR"
 
-        conan create "$CREATE_PATH" --name="$NAME" --version="$VERSION" \
-            -s build_type="$BUILD_TYPE" -s compiler.cppstd=20 --build=missing
+        create_dep_from_path "$NAME" "$VERSION" "$CREATE_PATH"
         rm -rf "$TMP_DIR"
     else
         echo "[INFO] Found $NAME/$VERSION in local cache."
     fi
 }
 
-# ====================================================== download dependencies
-check_and_create_dep "nbkit" "1.0.0" "https://github.com/nico-bertoli/nbkit.git"
-check_and_create_dep "terme" "1.0.0" "https://github.com/nico-bertoli/terme.git" "terme"
+create_deps_local() {
+    local NBKIT_SRC="$SCRIPT_DIR/../../nbkit"
+    local TERME_SRC="$SCRIPT_DIR/../../terme/terme"
+
+    if [[ ! -d "$NBKIT_SRC" ]]; then
+        echo "ERROR: nbkit not found at $NBKIT_SRC (expected sibling of terme_examples)"
+        exit 1
+    fi
+    if [[ ! -d "$TERME_SRC" ]]; then
+        echo "ERROR: terme package dir not found at $TERME_SRC (expected .../terme/terme with conanfile.py)"
+        exit 1
+    fi
+
+    NBKIT_SRC="$(cd "$NBKIT_SRC" && pwd)"
+    TERME_SRC="$(cd "$TERME_SRC" && pwd)"
+
+    echo "[INFO] --local: building nbkit from $NBKIT_SRC"
+    echo "[INFO] --local: building terme from $TERME_SRC"
+
+    create_dep_from_path "nbkit" "1.0.0" "$NBKIT_SRC"
+    create_dep_from_path "terme" "1.0.0" "$TERME_SRC"
+}
+
+# ====================================================== download / local dependencies
+
+# used for development, builds local terme and nbkit
+if [[ "$USE_LOCAL" -eq 1 ]]; then
+    create_deps_local
+else
+    check_and_create_dep "nbkit" "1.0.0" "https://github.com/nico-bertoli/nbkit.git"
+    check_and_create_dep "terme" "1.0.0" "https://github.com/nico-bertoli/terme.git" "terme"
+fi
 
 # ====================================================== conan install
 echo "[INFO] Installing project dependencies..."
