@@ -15,7 +15,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		nbkit::Event<std::weak_ptr<Collider>> on_destroy_event;
+		nbkit::Event<terme::Collider*> on_destroy_event;
 
 	protected:
 		const terme::Model* animation_model_1_;

@@ -17,6 +17,6 @@ namespace SpaceInvaders
 	protected:
 		terme::TerminalColor GetColor() const override { return terme::color::kRed; }
 		void InitModel() override { SetModel(kModel); }
-		void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+		void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
 	};
 }

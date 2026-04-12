@@ -4,7 +4,6 @@
 
 using terme::Model;
 using terme::Direction;
-using std::shared_ptr;
 
 namespace SpaceInvaders
 {
@@ -19,7 +18,7 @@ namespace SpaceInvaders
 		TryMove(move_direction_, kMoveSpeed);
 	}
 
-	void Ufo::OnCollisionEnter(shared_ptr<Collider> other, Direction collision_dir)
+	void Ufo::OnCollisionEnter(terme::Collider* other, Direction collision_dir)
 	{
 		Enemy::OnCollisionEnter(other, collision_dir);
 		terme::AudioManager::Instance().PlayFx("resources/sounds/space_invaders/ufo_defeated.wav");

@@ -1,6 +1,7 @@
 #pragma once
 #include <terme/entities/level.h>
 #include <typeinfo>
+#include <memory>
 
 namespace SpaceInvaders
 {
@@ -36,7 +37,7 @@ namespace SpaceInvaders
         int score_;
         bool is_loading_wave_;
         double started_loading_wave_time_;
-        std::shared_ptr<AliensController> aliens_controller_;
+        AliensController* aliens_controller_ = nullptr;
 
         //------------------------------------------------------------------- Methods
     public:
@@ -68,7 +69,7 @@ namespace SpaceInvaders
         void PrintWave();
         const std::type_info& GetAlienTypeForRow(int row_index);
         void AddAliensRowToSimulation(int y_pos, int row_index);
-        std::shared_ptr<Alien> CreateAlienOfType(const std::type_info& alien_type, int x_pos, int y_pos, int x_index, int y_index);
+        std::unique_ptr<Alien> CreateAlienOfType(const std::type_info& alien_type, int x_pos, int y_pos, int x_index, int y_index);
         void OnWaveCompleted();
         void LoadNewWave();
         void OnPlayerTakesDamage(size_t remaining_health);

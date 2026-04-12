@@ -2,41 +2,40 @@
 #include "alien.h"
 #include <nbkit/matrix.h>
 
-using std::weak_ptr;
-using std::shared_ptr;
+#include <cstdint>
 
 namespace SpaceInvaders
 {
 	size_t AliensFrontline::GetMinY()
 	{
 		size_t min = SIZE_MAX;
-		for (weak_ptr<Alien> alienWeak : frontLine)
+		for (Alien* alien : frontLine)
 		{
-			shared_ptr<Alien> alien = alienWeak.lock();
 			if (alien != nullptr && alien->GetPosY() < min)
 				min = alien->GetPosY();
 		}
 		return min;
 	}
 
-	void AliensFrontline::ReplaceDestroyedElement(shared_ptr<Alien> destroyedAlien, const nbkit::Matrix<std::weak_ptr<Alien>>& aliensGrid)
+	void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const nbkit::Matrix<Alien*>& aliensGrid)
 	{
-		size_t destroyedX = destroyedAlien->GetIndexInGridX();
+		const size_t columnX = destroyedAlien->GetIndexInGridX();
 
-		//try find new front line element
-		for (int y = static_cast<int>(aliensGrid.GetSizeY()) - 1; y >= 0; --y)
+		for (int y = aliensGrid.GetSizeY() - 1; y >= 0; --y)
 		{
-			shared_ptr<Alien> newCandidate = aliensGrid.Get(destroyedX, y).lock();
+			Alien* newCandidate = aliensGrid.Get(columnX, y);
 			if (newCandidate != nullptr && newCandidate != destroyedAlien)
 			{
-				frontLine[destroyedX] = newCandidate;
+				frontLine[columnX] = newCandidate;
 				return;
 			}
 		}
+
+		frontLine[columnX] = nullptr;
 	}
 
-	shared_ptr<Alien> AliensFrontline::GetRandom()
+	Alien* AliensFrontline::GetRandom()
 	{
-		return GetAt(nbkit::random_utils::GetRandomInt(0, static_cast<int>(frontLine.size()) - 1));
+		return GetAt(nbkit::random_utils::GetRandomInt(0, frontLine.size()) - 1);
 	}
 }

@@ -1,7 +1,6 @@
 #include "pressure_plate.h"
 #include <terme/managers/audio_manager.h>
 
-using std::shared_ptr;
 using Direction = terme::Direction;
 
 namespace Platformer
@@ -12,7 +11,7 @@ namespace Platformer
         pressed_model_ = CreteModelUsingChar('_', width, 1);
     }
 
-    void PressurePlate::OnCollisionEnter(shared_ptr<Collider> other, Direction collision_dir)
+    void PressurePlate::OnCollisionEnter(terme::Collider* other, Direction collision_dir)
     {
         if (collision_dir == Direction::kUp && collisions_[Direction::kUp].size() == 1)
         {

@@ -18,6 +18,6 @@ namespace SpaceInvaders
         double GetGravityScale() const override { return 0; }
         terme::TerminalColor GetColor() const override { return terme::color::kGreen; }
         void InitModel() override { SetModel(model_); }
-        void OnCollisionEnter(std::shared_ptr<Collider>other, terme::Direction collision_dir)override;
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
     };
 }

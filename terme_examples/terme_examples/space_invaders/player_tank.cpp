@@ -7,9 +7,11 @@
 #include <terme/managers/audio_manager.h>
 #include "space_invaders_level.h"
 
+#include <memory>
+#include <utility>
+
 using terme::Direction;
 using terme::Model;
-using std::shared_ptr;
 
 namespace SpaceInvaders
 {
@@ -47,8 +49,9 @@ namespace SpaceInvaders
             if (time - last_time_shot_ > kShotsDelay)
             {
                 last_time_shot_ = terme::TimeManager::Instance().GetTime();
-                shared_ptr<PlayerProjectile> projectile = std::make_shared<PlayerProjectile>(GetMidPosX(), GetMaxPosY() + 1, Direction::kUp, kProjectileSpeed);
-                terme::Simulation::Instance().TryAddEntity(projectile);
+                std::unique_ptr<PlayerProjectile> projectile =
+                    std::make_unique<PlayerProjectile>(GetMidPosX(), GetMaxPosY() + 1, Direction::kUp, kProjectileSpeed);
+                terme::Simulation::Instance().TryAddEntity(std::move(projectile));
                 terme::AudioManager::Instance().PlayFx("resources/sounds/space_invaders/shot1.wav");
             }
         }

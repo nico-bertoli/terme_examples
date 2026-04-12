@@ -33,7 +33,7 @@ namespace SpaceInvaders
 
 	protected:
 		void Update() override;
-		void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+		void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
 		terme::TerminalColor GetDestroyedParticlesColor() override { return terme::color::kRed; }
 	};
 }

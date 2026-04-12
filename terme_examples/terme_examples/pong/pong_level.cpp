@@ -5,6 +5,9 @@
 #include <terme/managers/audio_manager.h>
 #include <terme/printers/ui_printer.h>
 
+#include <memory>
+#include <utility>
+
 namespace Pong
 {
 	size_t PongLevel::score_player_1_ = 0;
@@ -24,38 +27,43 @@ namespace Pong
 
 		//--------------- bottom bar
 
-		auto bottom_bar = std::make_shared<PongBar>
-		(
-			starting_pos_x,
-			GetScreenPadding(),
-			bars_size,
-			1,
-			bars_char,
-			bars_move_speed,
-			deflect_factor,
-			true
-		);
-		simulation.TryAddEntity(bottom_bar);
+		{
+			std::unique_ptr<PongBar> bottom_bar = std::make_unique<PongBar>
+			(
+				starting_pos_x,
+				GetScreenPadding(),
+				bars_size,
+				1,
+				bars_char,
+				bars_move_speed,
+				deflect_factor,
+				true
+			);
+			simulation.TryAddEntity(std::move(bottom_bar));
+		}
 
 		//--------------- top bar
-		auto top_bar = std::make_shared<PongBar>
-		(
-			starting_pos_x,
-			GetWorldSizeY() - GetScreenPadding() - 1,
-			bars_size,
-			1,
-			bars_char,
-			bars_move_speed,
-			deflect_factor,
-			false
-		);
-		simulation.TryAddEntity(top_bar);
+		{
+			std::unique_ptr<PongBar> top_bar = std::make_unique<PongBar>
+			(
+				starting_pos_x,
+				GetWorldSizeY() - GetScreenPadding() - 1,
+				bars_size,
+				1,
+				bars_char,
+				bars_move_speed,
+				deflect_factor,
+				false
+			);
+			simulation.TryAddEntity(std::move(top_bar));
+		}
 
-		//--------------- ball
 		double ball_speed = 16;
-		auto pong_ball = std::make_shared<PongBall>(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ball_speed);
-		pong_ball->on_goal.Subscribe([this]() { OnGameOver(); });
-		simulation.TryAddEntity(pong_ball);
+		{
+			std::unique_ptr<PongBall> pong_ball = std::make_unique<PongBall>(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ball_speed);
+			pong_ball->on_goal.Subscribe([this]() { OnGameOver(); });
+			simulation.TryAddEntity(std::move(pong_ball));
+		}
 		RefreshHeader();
 	}
 

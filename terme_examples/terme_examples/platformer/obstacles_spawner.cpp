@@ -6,9 +6,11 @@
 #include <terme/entities/collider.h>
 #include <cstdlib>
 
+#include <memory>
+#include <utility>
+
 using terme::Collider;
 using terme::Direction;
-using std::shared_ptr;
 
 namespace Platformer
 {
@@ -70,8 +72,8 @@ namespace Platformer
             double obstacle_speed = GetCurrentObstaclesSpeed();
             Direction direction = obstacle_speed > 0 ? Direction::kRight : Direction::kLeft;
             obstacle_speed = abs(obstacle_speed);
-            shared_ptr<Obstacle> obstacle = std::make_shared<Obstacle>(x_pos_, random_pos_y, direction, obstacle_speed);
-            terme::Simulation::Instance().TryAddEntity(std::dynamic_pointer_cast<Collider>(obstacle));
+            std::unique_ptr<Obstacle> obstacle = std::make_unique<Obstacle>(x_pos_, random_pos_y, direction, obstacle_speed);
+            terme::Simulation::Instance().TryAddEntity(std::move(obstacle));
         }
     }
 

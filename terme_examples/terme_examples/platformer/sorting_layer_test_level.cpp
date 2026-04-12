@@ -4,7 +4,8 @@
 #include "sorting_layer_test_object.h"
 #include "sorting_layer_test_level.h"
 
-using std::shared_ptr;
+#include <memory>
+#include <utility>
 
 namespace Platformer
 {
@@ -13,35 +14,41 @@ namespace Platformer
         terme::Level::LoadInSimulation();
         terme::Simulation& simulation = terme::Simulation::Instance();
 
-        //----------------- bunny setup
-        shared_ptr<Bunny> bunny = std::make_shared<Bunny>(9,5);
-        bunny->on_obstacle_hit.Subscribe([this]() { OnGameOver(); });
-        simulation.TryAddEntity(bunny);
+        //------------ bunny
+        {
+            std::unique_ptr<Bunny> bunny = std::make_unique<Bunny>(9, 5);
+            bunny->on_obstacle_hit.Subscribe([this]() { OnGameOver(); });
+            simulation.TryAddEntity(std::move(bunny));
+        }
 
-        //----------------- front object
-        auto sortingLayerTestObjFront = std::make_shared<SortingLayerTestObject>
-        (
-            10,     //posx
-            1,      //posy
-            30,     //sizex
-            5,      //sizey
-            '#',    //char
-            terme::color::kRed,
+        //------------ font object
+        {
+            std::unique_ptr<SortingLayerTestObject> sorting_layer_test_obj_front = std::make_unique<SortingLayerTestObject>
+            (
+                10,     //posx
+                1,      //posy
+                30,     //sizex
+                5,      //sizey
+                '#',    //char
+                terme::color::kRed,
             200     //sorting layer
-        );
-        simulation.TryAddEntity(sortingLayerTestObjFront);
+            );
+            simulation.TryAddEntity(std::move(sorting_layer_test_obj_front));
+        }
 
-        //----------------- back object
-        auto sortingLayerTestObjBack = std::make_shared<SortingLayerTestObject>
-        (
-            60,     //posx
-            1,      //posy
-            30,      //sizex
-            5,      //sizey
-            '#',     //char
-            terme::color::kBlue,
-            0       //sorting layer
-        );
-        simulation.TryAddEntity(sortingLayerTestObjBack);
+        //------------ back object
+        {
+            std::unique_ptr<SortingLayerTestObject> sorting_layer_test_obj_back = std::make_unique<SortingLayerTestObject>
+            (
+                60,
+                1,
+                30,
+                5,
+                '#',
+                terme::color::kBlue,
+                0
+            );
+            simulation.TryAddEntity(std::move(sorting_layer_test_obj_back));
+        }
     }
 }

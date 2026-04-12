@@ -27,11 +27,11 @@ namespace Pong
     protected:
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
         void Update() override;
         void InitModel() override { SetModel(kModel); }
 
     private:
-        void HandleBarCollision(std::shared_ptr<PongBar> colliding_bar);
+        void HandleBarCollision(PongBar* colliding_bar);
     };
 }

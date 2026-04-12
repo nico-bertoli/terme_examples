@@ -2,7 +2,6 @@
 #include <terme/managers/audio_manager.h>
 #include <terme/managers/time_manager.h>
 
-using std::shared_ptr;
 using terme::Model;
 using terme::Direction;
 
@@ -10,7 +9,7 @@ namespace Platformer
 {
     Model Obstacle::model_ = {};
 
-    void Obstacle::OnCollisionEnter(shared_ptr<Collider> other, Direction collision_dir)
+    void Obstacle::OnCollisionEnter(terme::Collider* other, Direction collision_dir)
     {
         terme::AudioManager::Instance().PlayFx("resources/sounds/platform/hit.wav", 0.2);
     }

@@ -16,7 +16,7 @@ namespace Platformer
         terme::TerminalColor GetColor() const override { return terme::color::kRed; }
 
     protected:
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
         void InitModel() override;
     };
 }

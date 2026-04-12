@@ -34,7 +34,7 @@ namespace Platformer
     protected:
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
         void InitModel() override { SetModel(kFlagModel); }
     };
 }

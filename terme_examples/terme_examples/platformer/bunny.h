@@ -25,7 +25,6 @@ namespace Platformer
         static constexpr char kCharChest = ':';
         static constexpr char kCharFootUp = '@';
 
-        //todo make this iniline constexpr and init them directly in header
         static const terme::Model kModelWalkLeft;
         static const terme::Model kModelWalkRight;
         static const terme::Model kModelJumpRight;
@@ -65,7 +64,7 @@ namespace Platformer
 
     protected:
         void Update() override;
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override;
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override;
         void InitModel() override { SetModel(kModelIdleLeft); }
 
     private:

@@ -6,7 +6,6 @@
 #include <nbkit/random_utils.h>
 
 using terme::Model;
-using std::shared_ptr;
 using terme::Direction;
 
 namespace Pong
@@ -24,7 +23,7 @@ namespace Pong
             this->y_speed_ = -y_speed;
     }
 
-    void PongBall::OnCollisionEnter(shared_ptr<Collider> other, Direction collision_dir)
+    void PongBall::OnCollisionEnter(terme::Collider* other, Direction collision_dir)
     {
         is_first_launch_ = false;
 
@@ -49,7 +48,7 @@ namespace Pong
         {
             y_speed_ = -y_speed_;
             
-            shared_ptr<PongBar> collider_bar = std::dynamic_pointer_cast<PongBar>(other);
+            PongBar* collider_bar = dynamic_cast<PongBar*>(other);
             if (collider_bar != nullptr)
                 HandleBarCollision(collider_bar);
         }
@@ -59,7 +58,7 @@ namespace Pong
         }
     }
 
-    void PongBall::HandleBarCollision(shared_ptr<PongBar> colliding_bar)
+    void PongBall::HandleBarCollision(PongBar* colliding_bar)
     {
         int other_mid_x = (colliding_bar->GetMaxPosX() + colliding_bar->GetPosX()) / 2;
         int distance_from_mid_point = GetPosX() - other_mid_x;

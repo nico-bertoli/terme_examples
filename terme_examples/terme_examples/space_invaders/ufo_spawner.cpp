@@ -5,9 +5,11 @@
 #include <nbkit/random_utils.h>
 #include <terme/managers/debug_manager.h>
 
+#include <memory>
+#include <utility>
+
 using terme::Direction;
 using terme::TimeManager;
-using std::shared_ptr;
 
 namespace SpaceInvaders
 {
@@ -21,8 +23,8 @@ namespace SpaceInvaders
 	{
 		if (TimeManager::Instance().GetTime() > nextSpawnTime)
 		{
-			shared_ptr<Ufo> ufo = std::make_shared<Ufo>(xSpawnPos, ySpawnPos, ufoMoveDirection);
-			terme::Simulation::Instance().TryAddEntity(ufo);
+			std::unique_ptr<Ufo> ufo = std::make_unique<Ufo>(xSpawnPos, ySpawnPos, ufoMoveDirection);
+			terme::Simulation::Instance().TryAddEntity(std::move(ufo));
 			lastTimeSpawned = TimeManager::Instance().GetTime();
 			SetNextSpawnDelay();
 		}

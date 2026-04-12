@@ -21,7 +21,7 @@ namespace Platformer
 
     protected:
         void InitModel() override { SetModel(model_); }
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir)override
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override
         {
             if (collision_dir == terme::Direction::kRight || collision_dir == terme::Direction::kLeft)
             {
@@ -30,7 +30,7 @@ namespace Platformer
             }
             else
             {
-                if(std::dynamic_pointer_cast<Bunny>(other))
+                if (dynamic_cast<Bunny*>(other))
                    terme::AudioManager::Instance().PlayFx("resources/sounds/platform/hit.wav", 0.2);
             }
         }

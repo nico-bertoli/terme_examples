@@ -4,7 +4,9 @@
 #include "enemy_projectile.h"
 #include <terme/core/simulation.h>
 
-using std::shared_ptr;
+#include <memory>
+#include <utility>
+
 using terme::Direction;
 
 namespace SpaceInvaders
@@ -13,13 +15,14 @@ namespace SpaceInvaders
 	{
 		Enemy::OnDestroy();
 		terme::AudioManager::Instance().PlayFx("resources/sounds/space_invaders/alien_death2.wav");
-		on_destroy_event.Notify(std::dynamic_pointer_cast<Collider>(shared_from_this()));
+		on_destroy_event.Notify(static_cast<terme::Collider*>(this));
 	}
 
 	void Alien::Shot()
 	{
-		shared_ptr<EnemyProjectile> projectile = std::make_shared<EnemyProjectile>(GetMidPosX(), GetPosY() - 2, Direction::kDown, kProjectileSpeed);
-		terme::Simulation::Instance().TryAddEntity(projectile);
+		std::unique_ptr<EnemyProjectile> projectile =
+			std::make_unique<EnemyProjectile>(GetMidPosX(), GetPosY() - 2, Direction::kDown, kProjectileSpeed);
+		terme::Simulation::Instance().TryAddEntity(std::move(projectile));
 	}
 
 	void Alien::Update()

@@ -12,8 +12,10 @@
 #include <nbkit/random_utils.h>
 #include <string>
 
+#include <memory>
+#include <utility>
+
 using std::string;
-using std::shared_ptr;
 using WindowPosition = terme::UIPrinter::WindowPosition;
 
 namespace Platformer
@@ -64,15 +66,15 @@ namespace Platformer
         terme::Simulation& simulation = terme::Simulation::Instance();
 
         //----------------- bunny setup
-        int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
-        shared_ptr<Bunny> bunny = std::make_shared<Bunny>(9, bunnyStartingY);
+        int bunny_starting_y = static_cast<int>(simulation.GetScreenPadding());
+        std::unique_ptr<Bunny> bunny = std::make_unique<Bunny>(9, bunny_starting_y);
         bunny->on_obstacle_hit.Subscribe([this]() { OnGameOver(); });
-        simulation.TryAddEntity(bunny);
+        simulation.TryAddEntity(std::move(bunny));
 
         //----------------- obstacles spawner setup
-        int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
+        int spawner_pos_x = GetWorldSizeX() - GetScreenPadding();
 
-        std::vector<double> minSpawnDelays
+        std::vector<double> min_spawn_delays
         {
             0.9,
             0.4,
@@ -81,7 +83,7 @@ namespace Platformer
             0.22,
             0.22
         };
-        std::vector<double> maxSpawnDelays
+        std::vector<double> max_spawn_delays
         {
             1,
             0.6,
@@ -90,7 +92,7 @@ namespace Platformer
             0.32,
             0.22
         };
-        std::vector<double> moveSpeeds
+        std::vector<double> move_speeds
         {
             -8,
             -16,
@@ -100,30 +102,30 @@ namespace Platformer
             -48
         };
 
-        double increaseIntensityEverySeconds = 10;
-        double stopSpawningWhenPhaseChangesDuration = 1;
+        double increase_intensity_every_seconds = 10;
+        double stop_spawning_when_phase_changes_duration = 1;
 
-        std::vector<int> ySpawnPoints = { 4,8,12 };
+        std::vector<int> y_spawn_points = { 4,8,12 };
 
-        shared_ptr<ObstaclesSpawner> spawner = std::make_shared<ObstaclesSpawner>
+        std::unique_ptr<ObstaclesSpawner> spawner = std::make_unique<ObstaclesSpawner>
         (
-            spawnerPosX,
-            minSpawnDelays,
-            maxSpawnDelays,
-            moveSpeeds,
-            ySpawnPoints,
-            increaseIntensityEverySeconds,
-            stopSpawningWhenPhaseChangesDuration
+            spawner_pos_x,
+            min_spawn_delays,
+            max_spawn_delays,
+            move_speeds,
+            y_spawn_points,
+            increase_intensity_every_seconds,
+            stop_spawning_when_phase_changes_duration
         );
 
-        simulation.TryAddEntity(spawner);
+        simulation.TryAddEntity(std::move(spawner));
         PlayRandomMusic();
     }
 
     void EndlessRunnerLevel::PlayRandomMusic()
     {
-        const char* randomMusic = kMusicFiles[nbkit::random_utils::GetRandomInt(0, static_cast<int>(kMusicFiles.size() - 1))];
-        terme::AudioManager::Instance().PlayMusic(randomMusic);
+        const char* random_music = kMusicFiles[nbkit::random_utils::GetRandomInt(0, static_cast<int>(kMusicFiles.size() - 1))];
+        terme::AudioManager::Instance().PlayMusic(random_music);
     }
 
     void EndlessRunnerLevel::Update()
@@ -140,4 +142,3 @@ namespace Platformer
     }
 
 }
-

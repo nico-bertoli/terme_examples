@@ -8,9 +8,6 @@
 
 using terme::Model;
 using terme::Direction;
-using std::weak_ptr;
-using std::shared_ptr;
-
 
 namespace Platformer
 {
@@ -94,7 +91,7 @@ namespace Platformer
         SetState(State::kIdle);
         ActivateLeftModels(true);
         previous_position_x_ = GetPosX();
-        on_move.Subscribe([this](weak_ptr<GameObject> _, Direction dir) { OnMoveCallback(dir); });
+        on_move.Subscribe([this](terme::GameObject*, Direction dir) { OnMoveCallback(dir); });
     }
 
     void Bunny::Update()
@@ -251,9 +248,9 @@ namespace Platformer
             last_time_moved_on_x_ = terme::TimeManager::Instance().GetTime();
     }
 
-    void Bunny::OnCollisionEnter(shared_ptr<Collider> other, Direction collision_dir)
+    void Bunny::OnCollisionEnter(terme::Collider* other, Direction collision_dir)
     {
-        if(std::dynamic_pointer_cast<Obstacle>(other))
+        if (dynamic_cast<Obstacle*>(other))
         {
             SetState(State::kDefeated);
             on_obstacle_hit.Notify();

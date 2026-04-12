@@ -15,12 +15,12 @@ namespace SpaceInvaders
     protected:
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        void OnCollisionEnter(std::shared_ptr<Collider> other, terme::Direction collision_dir) override
+        void OnCollisionEnter(terme::Collider* other, terme::Direction collision_dir) override
         {
             MovingStraightObject::OnCollisionEnter(other, collision_dir);
             terme::Direction collision_opposite_direction = terme::direction_utils::GetInverseDirection(collision_dir);
 
-            std::shared_ptr<Enemy> other_enemy = std::dynamic_pointer_cast<Enemy>(other);
+            Enemy* other_enemy = dynamic_cast<Enemy*>(other);
             if (other_enemy == nullptr)
             {
                 terme::Simulation::Instance().SpawnParticles
@@ -38,7 +38,7 @@ namespace SpaceInvaders
                 );
             }
 
-            terme::Simulation::Instance().RemoveEntity(shared_from_this());
+            terme::Simulation::Instance().RemoveEntity(this);
         }
     };
 }

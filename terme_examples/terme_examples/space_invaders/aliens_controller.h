@@ -8,22 +8,22 @@
 #include <nbkit/event.h>
 #include <terme/entities/game_object.h>
 
-namespace terme{class GameObject;}
+namespace terme { class GameObject; class Collider; }
 
 namespace SpaceInvaders
-{	
+{
 	class Alien;
 	class SpaceInvadersLevel;
 
 	class AliensController : public terme::ISimulationEntity
 	{
 		//------------------------------------------------------------------- Aliens Settings
-		//movement
+//movement
 		static constexpr double kBaseMoveSpeed = 0.5;
 		static constexpr double kAllAliensEliminatedMoveSpeedIncrement = 16;
 		static constexpr double kWaveNumberSpeedIncreaseFactor = 1;
 
-		//shooting
+//shooting
 		static constexpr double kBaseShootDelay = 1.5;
 		static constexpr double kAllAliensEliminatedShootDelayReduction = 0.5;
 		static constexpr double kWaveNumberShotDelayReductionFactor = 0.1;
@@ -36,7 +36,7 @@ namespace SpaceInvaders
 
 	private:
 		SpaceInvadersLevel* level;
-		nbkit::Matrix<std::weak_ptr<Alien>> aliensGrid;
+		nbkit::Matrix<Alien*> aliensGrid;
 		AliensFrontline frontLine;
 
 		size_t aliens_count_ = 0;
@@ -50,7 +50,7 @@ namespace SpaceInvaders
 		AliensController(SpaceInvadersLevel* level) : level(level) {}
 		void Reset(int aliens_count_x, int aliens_count_y);
 		void Update() override;
-		void RegisterAlien(std::shared_ptr<Alien> alien, int x_pos, int y_pos);
+		void RegisterAlien(Alien* alien, int x_pos, int y_pos);
 
 	private:
 		double GetSpeedX()const;
@@ -61,8 +61,9 @@ namespace SpaceInvaders
 		size_t GetAliensGridWidth() const { return aliensGrid.GetSizeX(); }
 		size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
 		size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliens_count_; }
-		void OnAlienMovedCallback(std::weak_ptr<terme::GameObject> alien, terme::Direction move_direction);
-		void OnAlienDestroyedCallback(std::weak_ptr<terme::GameObject> alien_obj);
+		void OnAlienMovedCallback(terme::GameObject* alien, terme::Direction move_direction);
+		void OnAlienDestroyedCallback(terme::Collider* alien_obj);
+		void UnregisterAlien(Alien* alien);
 		void OnAliensReachMargin();
 		void MoveAliens(terme::Direction dir, double speed);
 		void HandleShooting();
