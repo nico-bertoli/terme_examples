@@ -69,7 +69,7 @@ namespace SpaceInvaders
 		aliensGrid.Get(size_t(x_pos), size_t(y_pos)) = alien;
 
 		if (GetAliensGridHeight() > 0 && size_t(y_pos) == GetAliensGridHeight() - 1)
-			frontLine.Set(size_t(x_pos), alien);
+			frontLine.Set(alien);
 
 		alien->on_move.Subscribe
 		(
@@ -140,9 +140,10 @@ namespace SpaceInvaders
 	{
 		if (terme::TimeManager::Instance().GetTime() - last_shot_time_ > shot_delay_)
 		{
-			Alien* front_line_alien = frontLine.GetRandom();
-			if (front_line_alien == nullptr)
+			Alien* front_line_alien;
+			if (frontLine.TryGetRandom(front_line_alien) == false)
 				return;
+
 			front_line_alien->Shot();
 			last_shot_time_ = terme::TimeManager::Instance().GetTime();
 			shot_delay_ = GetNextShotDelay();

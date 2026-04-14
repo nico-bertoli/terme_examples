@@ -32,7 +32,7 @@ namespace Platformer
         void Update()override;
         double ShowGameOverScreenDelay() const override { return 1.5; }
         void OnPostGameOverDelayEnded() override;
-        const char* GetPersistenceFilePath() override { return "resources/persistence/endless_runner.txt"; }
+        const char* GetPersistenceFilePath() override { return "resources/scores/endless_runner.txt"; }
         const char* GetGameOverWindowPath() override { return "resources/game_over_windows/endless_runner.txt"; }
         void ShowGameOverScreen(int score, int bestScore) override;
         void OnGameOver() override;
