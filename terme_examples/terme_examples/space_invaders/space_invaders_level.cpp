@@ -1,4 +1,5 @@
 #include "space_invaders_level.h"
+#include "settings.h"
 #include <terme/core/simulation.h>
 #include "alien_low_score.h"
 #include "alien_mid_score.h"
@@ -71,11 +72,12 @@ namespace SpaceInvaders
 			Simulation::Instance().TryAddEntity(std::move(ufo_spawner));
 		}
 
-#if !CHEAT_SPACEINV_DISABLE_SHIELDS
-		//------------ shields
-		vector<size_t> shields_spacing = { 9,9,10,9,9 };
-		LoadShields(9, 4, shields_spacing);
-#endif
+		if constexpr (!space_invaders::cheats::kDisableShields)
+		{
+			//------------ shields
+			vector<size_t> shields_spacing = { 9,9,10,9,9 };
+			LoadShields(9, 4, shields_spacing);
+		}
 	}
 
 	void SpaceInvadersLevel::OnGameOver()

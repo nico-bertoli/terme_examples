@@ -1,5 +1,4 @@
 #pragma once
-// #include "config.h"
 #include <terme/entities/level.h>
 #include <string>
 #include <array>

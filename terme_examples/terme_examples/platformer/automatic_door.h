@@ -1,5 +1,4 @@
 #pragma once
-// #include "config.h"
 #include <terme/entities/variable_size_collider.h>
 
 namespace Platformer

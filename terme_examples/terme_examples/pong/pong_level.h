@@ -1,6 +1,5 @@
 #pragma once
 #include <terme/entities/level.h>
-// #include "config.h"
 
 namespace Pong
 {

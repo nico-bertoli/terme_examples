@@ -1,5 +1,4 @@
 #pragma once
-// #include "config.h"
 #include <terme/entities/collider.h>
 #include <terme/general/vector2_int.h>
 #include <string>

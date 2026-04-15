@@ -1,4 +1,5 @@
 #include "player_tank.h"
+#include "settings.h"
 #include <terme/core/simulation.h>
 #include <terme/input_manager/input_manager.h>
 #include "player_projectile.h"
@@ -41,10 +42,11 @@ namespace SpaceInvaders
         {
             double time = terme::TimeManager::Instance().GetTime();
 
-#if CHEAT_SPACEINV_FAST_FIRE
-            if (time - last_time_shot_ > 0.08)
-                last_time_shot_ = -99;
-#endif
+            if constexpr (space_invaders::cheats::kFastFire)
+            {
+                if (time - last_time_shot_ > 0.08)
+                    last_time_shot_ = -99;
+            }
 
             if (time - last_time_shot_ > kShotsDelay)
             {
@@ -59,12 +61,13 @@ namespace SpaceInvaders
 
     void PlayerTank::TakeDamage()
     {
-#if !CHEAT_SPACEINV_INVINCIBILITY
-        health_--;
-        on_damage_taken.Notify(health_);
+        if constexpr (space_invaders::cheats::kInvincibility == false)
+        {
+            health_--;
+            on_damage_taken.Notify(health_);
 
-        if (health_ > 0)
-            terme::AudioManager::Instance().PlayFx("resources/sounds/space_invaders/damage_taken.wav");
-#endif
+            if (health_ > 0)
+                terme::AudioManager::Instance().PlayFx("resources/sounds/space_invaders/damage_taken.wav");
+        }
     }
 }

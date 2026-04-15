@@ -6,7 +6,7 @@
 #include <terme/managers/time_manager.h>
 
 #include "game_loop.h"
-#include "terme/config.h"
+#include <terme/settings.h>
 #include "endless_runner_level.h"
 #include "puzzle_level.h"
 #include "collisions_test_level.h"
