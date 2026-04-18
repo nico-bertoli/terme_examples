@@ -1,31 +1,34 @@
-#include "space_invaders_level.h"
 #include "settings.h"
-#include <terme/core/simulation.h>
+
+#include "space_invaders_level.h"
+
+#include "alien.h"
+#include "alien_high_score.h"
 #include "alien_low_score.h"
 #include "alien_mid_score.h"
-#include "alien_high_score.h"
-#include "player_tank.h"
 #include "aliens_controller.h"
-#include <terme/managers/audio_manager.h>
-#include <terme/managers/persistence_manager.h>
-#include <terme/printers/ui_printer.h>
-#include <terme/printers/printer.h>
-#include <terme/managers/time_manager.h>
+#include "player_tank.h"
 #include "shield_part.h"
 #include "ufo_spawner.h"
-#include "alien.h"
+
+#include <terme/core/simulation.h>
+#include <terme/managers/audio_manager.h>
+#include <terme/managers/persistence_manager.h>
+#include <terme/managers/time_manager.h>
+#include <terme/printers/printer.h>
+#include <terme/printers/ui_printer.h>
 
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <utility>
-#include <stdexcept>
 
-using WindowPosition = terme::UIPrinter::WindowPosition;
-using terme::Simulation;
-using terme::Direction;
 using std::string;
-using std::vector;
 using std::type_info;
+using std::vector;
+using WindowPosition = terme::UIPrinter::WindowPosition;
+using terme::Direction;
+using terme::Simulation;
 
 namespace SpaceInvaders
 {

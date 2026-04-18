@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/static_collider.h>
 
 namespace SpaceInvaders
@@ -7,7 +8,7 @@ namespace SpaceInvaders
     {
         //---------------------------------------------------------- Fields
     private:
-        terme::Model model_ = CreteModelUsingChar('=', 1, 1);
+        terme::Model model_ = CreateModelUsingChar('=', 1, 1);
 
         //---------------------------------------------------------- Methods
     public:

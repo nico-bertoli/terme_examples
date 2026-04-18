@@ -1,9 +1,8 @@
 #pragma once
-#include <terme/entities/collider.h>
-#include <terme/general/vector2_int.h>
-#include <terme/entities/level.h>
 
-namespace Engine {class Level;}
+#include <terme/entities/collider.h>
+#include <terme/entities/level.h>
+#include <terme/general/vector2_int.h>
 
 namespace Platformer
 {

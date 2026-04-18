@@ -1,6 +1,8 @@
 #pragma once
-#include <terme/entities/i_simulation_entity.h>
+
 #include <vector>
+
+#include <terme/entities/i_simulation_entity.h>
 
 namespace Platformer
 {

@@ -1,8 +1,11 @@
 #pragma once
+
 #include "enemy.h"
-#include <terme/terminal/terminal.h>
-#include <nbkit/random_utils.h>
+
 #include <array>
+
+#include <nbkit/random_utils.h>
+#include <terme/terminal/terminal.h>
 
 namespace SpaceInvaders
 {

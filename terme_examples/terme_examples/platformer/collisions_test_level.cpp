@@ -1,8 +1,10 @@
 #include "collisions_test_level.h"
-#include <terme/core/simulation.h>
+
+#include "bunny.h"
 #include "obstacle.h"
 #include "obstacles_spawner.h"
-#include "bunny.h"
+
+#include <terme/core/simulation.h>
 
 #include <memory>
 #include <utility>

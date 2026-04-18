@@ -2,5 +2,5 @@
 
 int main()
 {
-   GameLoop gameLoop;
+   GameLoop game_loop;
 }

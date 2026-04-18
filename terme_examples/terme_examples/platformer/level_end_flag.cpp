@@ -1,10 +1,11 @@
 #include "level_end_flag.h"
 #include "bunny.h"
+
 #include <terme/entities/level.h>
 
-using terme::Model;
 using terme::Direction;
 using terme::Level;
+using terme::Model;
 
 namespace Platformer
 {

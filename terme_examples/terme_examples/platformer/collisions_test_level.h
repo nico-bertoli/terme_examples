@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/level.h>
 
 namespace Platformer
@@ -11,6 +12,6 @@ namespace Platformer
         int GetWorldSizeY() const override { return 120; }
         int GetScreenPadding() const override { return 4; }
         void LoadInSimulation() override;
-        double ShowGameOverScreenDelay()const override { return 0; }
+        double ShowGameOverScreenDelay() const override { return 0; }
     };
 }

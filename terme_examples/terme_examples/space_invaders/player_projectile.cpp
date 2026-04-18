@@ -1,10 +1,11 @@
 #include "player_projectile.h"
-#include <terme/core/simulation.h>
-#include "enemy.h"
-#include "space_invaders_level.h"
 
-using terme::Model;
+#include "enemy.h"
+
+#include <terme/core/simulation.h>
+
 using terme::Direction;
+using terme::Model;
 
 namespace SpaceInvaders
 {

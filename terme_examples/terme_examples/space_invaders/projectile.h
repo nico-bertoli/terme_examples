@@ -1,8 +1,10 @@
 #pragma once
-#include <terme/entities/moving_straight_object.h>
-#include <terme/core/simulation.h>
+
 #include "enemy.h"
 #include "shield_part.h"
+
+#include <terme/core/simulation.h>
+#include <terme/entities/moving_straight_object.h>
 
 namespace SpaceInvaders
 {
@@ -31,7 +33,7 @@ namespace SpaceInvaders
                     GetModelHeight(),
                     '*',
                     GetColor(),
-                    8,     //speed
+                    8,      //speed
                     3,      //movement life
                     4,      //density
                     collision_opposite_direction

@@ -1,9 +1,10 @@
 #pragma once
-#include <terme/entities/collider.h>
-#include <terme/managers/audio_manager.h>
-#include <terme/core/direction.h>
 
 #include "bunny.h"
+
+#include <terme/core/direction.h>
+#include <terme/entities/collider.h>
+#include <terme/managers/audio_manager.h>
 
 namespace Platformer
 {
@@ -11,7 +12,7 @@ namespace Platformer
     {
         //---------------------------------------------------------- Fields
     private:
-        terme::Model model_ = CreteModelUsingChar('@', 4, 2);
+        terme::Model model_ = CreateModelUsingChar('@', 4, 2);
         //----------------------------------------------F------------ Methods
     public:
         using Collider::Collider;

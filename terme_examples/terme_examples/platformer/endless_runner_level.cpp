@@ -1,19 +1,23 @@
 #include "endless_runner_level.h"
-#include <terme/core/simulation.h>
-#include <terme/entities/static_collider.h>
-#include <terme/managers/persistence_manager.h>
-#include <terme/input_manager/input_manager.h>
-#include <terme/managers/audio_manager.h>
+
 #include "bunny.h"
 #include "obstacles_spawner.h"
+
+#include <terme/core/frame.h>
+#include <terme/core/simulation.h>
+#include <terme/entities/static_collider.h>
+#include <terme/input_manager/input_manager.h>
+#include <terme/managers/audio_manager.h>
+#include <terme/managers/persistence_manager.h>
 #include <terme/printers/simulation_printer.h>
 #include <terme/printers/ui_printer.h>
-#include <terme/core/frame.h>
+
 #include <nbkit/random_utils.h>
-#include <string>
 
 #include <memory>
+#include <string>
 #include <utility>
+#include <vector>
 
 using std::string;
 using WindowPosition = terme::UIPrinter::WindowPosition;

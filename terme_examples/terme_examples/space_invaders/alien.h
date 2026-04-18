@@ -1,7 +1,9 @@
 #pragma once
+
 #include "enemy.h"
-#include <terme/general/vector2_int.h>
+
 #include <nbkit/event.h>
+#include <terme/general/vector2_int.h>
 
 namespace SpaceInvaders
 {

@@ -1,8 +1,10 @@
 #include "alien.h"
-#include <terme/managers/time_manager.h>
-#include <terme/managers/audio_manager.h>
+
 #include "enemy_projectile.h"
+
 #include <terme/core/simulation.h>
+#include <terme/managers/audio_manager.h>
+#include <terme/managers/time_manager.h>
 
 #include <memory>
 #include <utility>

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "projectile.h"
 
 namespace SpaceInvaders
@@ -9,7 +10,7 @@ namespace SpaceInvaders
 	private:
 		static inline const terme::Model kModel = terme::Model(1, { '|' });
 
-		//---------------------------------------------------------- Methodss
+		//---------------------------------------------------------- Methods
 	public:
 		using Projectile::Projectile;
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/moving_straight_object.h>
 
 namespace Platformer

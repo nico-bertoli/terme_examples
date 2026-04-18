@@ -1,11 +1,15 @@
 #include "aliens_controller.h"
+
 #include "alien.h"
-#include <terme/entities/level.h>
-#include <terme/managers/time_manager.h>
 #include "space_invaders_level.h"
-#include <terme/managers/debug_manager.h>
-#include <nbkit/random_utils.h>
+
 #include <terme/entities/game_object.h>
+#include <terme/entities/level.h>
+#include <terme/managers/debug_manager.h>
+#include <terme/managers/time_manager.h>
+
+#include <nbkit/random_utils.h>
+
 #include <cassert>
 
 using std::string;
@@ -36,24 +40,24 @@ namespace SpaceInvaders
 
 	double AliensController::GetWaveMultiplier()const
 	{
-		return static_cast<double>((level->GetWaveNumber() - 1));
+		return static_cast<double>((level_->GetWaveNumber() - 1));
 	}
 
 	void AliensController::Reset(int aliens_count_x, int aliens_count_y)
 	{
 		aliens_count_ = aliens_count_x * aliens_count_y;
-		aliensGrid.Resize(aliens_count_x, aliens_count_y);
-		frontLine.Init(aliens_count_x);
+		aliens_grid_.Resize(aliens_count_x, aliens_count_y);
+		front_line_.Init(aliens_count_x);
 	}
 
 	void AliensController::Update()
 	{
 #if DEBUG
-		string totBoost = "tot boost: " + std::to_string(GetSpeedX());
-		string eliminationsBoost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
-		string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
-		string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
-		terme::DebugManager::Instance().PrintGenericLog(debugStr, 0);
+		string tot_boost = "tot boost: " + std::to_string(GetSpeedX());
+		string eliminations_boost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
+		string wave_boost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
+		string debug_str = tot_boost + " | " + eliminations_boost + " | " + wave_boost;
+		terme::DebugManager::Instance().PrintGenericLog(debug_str, 0);
 #endif
 
 		HandleMovement();
@@ -66,12 +70,12 @@ namespace SpaceInvaders
 		assert(y_pos >= 0 && size_t(y_pos) < GetAliensGridHeight());
 		assert(x_pos >= 0 && size_t(x_pos) < GetAliensGridWidth());
 
-		aliensGrid.Get(size_t(x_pos), size_t(y_pos)) = alien;
+		aliens_grid_.Get(size_t(x_pos), size_t(y_pos)) = alien;
 
 		if (GetAliensGridHeight() > 0 && size_t(y_pos) == GetAliensGridHeight() - 1)
-			frontLine.Set(alien);
+			front_line_.Set(alien);
 
-		alien->on_move.Subscribe
+		alien->on_move_.Subscribe
 		(
 			[this](terme::GameObject* alien_obj, terme::Direction dir) { OnAlienMovedCallback(alien_obj, dir); }
 		);
@@ -88,8 +92,8 @@ namespace SpaceInvaders
 		{
 			int alien_x_pos = alien->GetPosX();
 			if (
-				alien_x_pos == level->GetScreenPadding() ||
-				alien_x_pos == level->GetWorldSizeX() - level->GetScreenPadding() - alien->GetModelWidth()
+				alien_x_pos == level_->GetScreenPadding() ||
+				alien_x_pos == level_->GetWorldSizeX() - level_->GetScreenPadding() - alien->GetModelWidth()
 				)
 				OnAliensReachMargin();
 		}
@@ -100,7 +104,7 @@ namespace SpaceInvaders
 		for (size_t y = 0; y < GetAliensGridHeight(); ++y)
 			for (size_t x = 0; x < GetAliensGridWidth(); ++x)
 			{
-				Alien* alien = aliensGrid.Get(x, y);
+				Alien* alien = aliens_grid_.Get(x, y);
 				if (alien)
 					alien->TryMove(dir, speed);
 			}
@@ -124,11 +128,11 @@ namespace SpaceInvaders
 		const size_t gx = alien->GetIndexInGridX();
 		const size_t gy = alien->GetIndexInGridY();
 
-		if (aliensGrid.Get(gx, gy) != alien)
+		if (aliens_grid_.Get(gx, gy) != alien)
 			return;
 
-		frontLine.ReplaceDestroyedElement(alien, aliensGrid);
-		aliensGrid.Get(gx, gy) = nullptr;
+		front_line_.ReplaceDestroyedElement(alien, aliens_grid_);
+		aliens_grid_.Get(gx, gy) = nullptr;
 
 		assert(aliens_count_ > 0);
 		--aliens_count_;
@@ -141,7 +145,7 @@ namespace SpaceInvaders
 		if (terme::TimeManager::Instance().GetTime() - last_shot_time_ > shot_delay_)
 		{
 			Alien* front_line_alien;
-			if (frontLine.TryGetRandom(front_line_alien) == false)
+			if (front_line_.TryGetRandom(front_line_alien) == false)
 				return;
 
 			front_line_alien->Shot();
@@ -154,7 +158,7 @@ namespace SpaceInvaders
 	{
 		if (is_time_to_move_aliens_down_)
 		{
-			if (frontLine.GetMinY() - 1 <= SpaceInvadersLevel::kGameOverY)
+			if (front_line_.GetMinY() - 1 <= SpaceInvadersLevel::kGameOverY)
 				on_ground_touched.Notify();
 
 			MoveAliens(terme::Direction::kDown, 9999);

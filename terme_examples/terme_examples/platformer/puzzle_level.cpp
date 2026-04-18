@@ -1,12 +1,14 @@
 #include "puzzle_level.h"
-#include <terme/core/simulation.h>
-#include "bunny.h"
-#include <terme/entities/static_collider.h>
+
 #include "automatic_door.h"
-#include "pressure_plate.h"
+#include "bunny.h"
 #include "level_end_flag.h"
-#include <terme/managers/audio_manager.h>
+#include "pressure_plate.h"
 #include "pushable_object.h"
+
+#include <terme/core/simulation.h>
+#include <terme/entities/static_collider.h>
+#include <terme/managers/audio_manager.h>
 
 #include <memory>
 #include <utility>

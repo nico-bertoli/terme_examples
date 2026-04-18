@@ -1,4 +1,5 @@
 #include "pressure_plate.h"
+
 #include <terme/managers/audio_manager.h>
 
 using Direction = terme::Direction;
@@ -7,8 +8,8 @@ namespace Platformer
 {
     PressurePlate::PressurePlate(int x_pos, int y_pos, size_t width) : Collider(x_pos, y_pos)
     {
-        unpressed_model_ = CreteModelUsingChar('=', width, 1);
-        pressed_model_ = CreteModelUsingChar('_', width, 1);
+        unpressed_model_ = CreateModelUsingChar('=', width, 1);
+        pressed_model_ = CreateModelUsingChar('_', width, 1);
     }
 
     void PressurePlate::OnCollisionEnter(terme::Collider* other, Direction collision_dir)

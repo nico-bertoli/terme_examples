@@ -1,12 +1,15 @@
-#include "player_tank.h"
 #include "settings.h"
-#include <terme/core/simulation.h>
-#include <terme/input_manager/input_manager.h>
+
+#include "player_tank.h"
+
 #include "player_projectile.h"
-#include <terme/managers/time_manager.h>
-#include <terme/entities/level.h>
-#include <terme/managers/audio_manager.h>
 #include "space_invaders_level.h"
+
+#include <terme/core/simulation.h>
+#include <terme/entities/level.h>
+#include <terme/input_manager/input_manager.h>
+#include <terme/managers/audio_manager.h>
+#include <terme/managers/time_manager.h>
 
 #include <memory>
 #include <utility>

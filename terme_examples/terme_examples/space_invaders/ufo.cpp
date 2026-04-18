@@ -1,8 +1,9 @@
 #include "ufo.h"
-#include <nbkit/random_utils.h>
+
 #include <terme/managers/audio_manager.h>
 
-using terme::Model;
+#include <nbkit/random_utils.h>
+
 using terme::Direction;
 
 namespace SpaceInvaders

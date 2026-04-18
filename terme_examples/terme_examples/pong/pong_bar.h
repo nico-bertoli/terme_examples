@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/variable_size_collider.h>
 
 namespace Pong

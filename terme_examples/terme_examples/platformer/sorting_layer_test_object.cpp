@@ -28,7 +28,7 @@ namespace Platformer
 
 	void SortingLayerTestObject::InitModel()
 	{
-		model_ = CreteModelUsingChar(model_char_, size_x_, size_y_);
+		model_ = CreateModelUsingChar(model_char_, size_x_, size_y_);
 		SetModel(model_);
 	}
 

@@ -1,6 +1,8 @@
 #pragma once
-#include <nbkit/matrix.h>
+
 #include <vector>
+
+#include <nbkit/matrix.h>
 
 namespace SpaceInvaders
 {
@@ -9,13 +11,13 @@ namespace SpaceInvaders
 	class AliensFrontline
 	{
 	private:
-		std::vector<Alien*> frontLine;
+		std::vector<Alien*> front_line_;
 	public:
 		void Init(size_t size);
 		Alien* GetAt(size_t pos);
 		bool TryGetRandom(Alien*& out_alien);
 		void Set(Alien* alien);
 		size_t GetMinY();
-		void ReplaceDestroyedElement(Alien* destroyedAlien, const nbkit::Matrix<Alien*>& aliensGrid);
+		void ReplaceDestroyedElement(Alien* destroyed_alien, const nbkit::Matrix<Alien*>& aliens_grid);
 	};
 }

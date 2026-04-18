@@ -1,7 +1,8 @@
 #pragma once
 
-#include "terme/entities/level.h"
 #include <memory>
+
+#include <terme/entities/level.h>
 
 class GameLoop
 {

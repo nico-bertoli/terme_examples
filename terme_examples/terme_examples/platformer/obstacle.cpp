@@ -1,9 +1,9 @@
 #include "obstacle.h"
-#include <terme/managers/audio_manager.h>
-#include <terme/managers/time_manager.h>
 
-using terme::Model;
+#include <terme/managers/audio_manager.h>
+
 using terme::Direction;
+using terme::Model;
 
 namespace Platformer
 {
@@ -17,7 +17,7 @@ namespace Platformer
     void Obstacle::InitModel()
     {
         if (model_.GetSizeY() == 0)
-            model_ = CreteModelUsingChar('#', size_t(4), size_t(2));
+            model_ = CreateModelUsingChar('#', size_t(4), size_t(2));
         SetModel(model_);
     }
 

@@ -1,28 +1,30 @@
-#include <memory>
+#include <terme/settings.h>
+
+#include "collisions_test_level.h"
+#include "endless_runner_level.h"
+#include "game_loop.h"
+#include "pong_level.h"
+#include "puzzle_level.h"
+#include "sorting_layer_test_level.h"
+#include "space_invaders_level.h"
+
+#include <terme/core/simulation.h>
 #include <terme/input_manager/input_manager.h>
 #include <terme/managers/audio_manager.h>
-#include <terme/core/simulation.h>
-#include <terme/terminal/terminal.h>
 #include <terme/managers/time_manager.h>
+#include <terme/terminal/terminal.h>
 
-#include "game_loop.h"
-#include <terme/settings.h>
-#include "endless_runner_level.h"
-#include "puzzle_level.h"
-#include "collisions_test_level.h"
-#include "pong_level.h"
-#include "space_invaders_level.h"
-#include "sorting_layer_test_level.h"
+#include <memory>
 
 using std::cout;
-using terme::Level;
 using terme::InputManager;
 using terme::Key;
+using terme::Level;
 using terme::Terminal;
 
 GameLoop::GameLoop()
 {
-    bool returnToMainMenu = false;
+    bool return_to_main_menu = false;
 
     while (true)
     {
@@ -35,8 +37,8 @@ GameLoop::GameLoop()
 
         while (true)
         {
-            returnToMainMenu = LoopSimulation(*level);
-            if (returnToMainMenu)
+            return_to_main_menu = LoopSimulation(*level);
+            if (return_to_main_menu)
                 break;
         }
     }
@@ -108,17 +110,17 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
 
         if (InputManager::Instance().IsKeyPressed(Key::kNum3))
             return std::make_unique<Platformer::PuzzleLevel>();
-    
+
         if (InputManager::Instance().IsKeyPressed(Key::kNum4))
             return std::make_unique<Pong::PongLevel>();
-        
+
         if (InputManager::Instance().IsKeyPressed(Key::kEsc))
             return nullptr;
 
 #if DEBUG
         if (InputManager::Instance().IsKeyPressed(Key::kNum5))
             return std::make_unique<Platformer::CollisionsTestLevel>();
-            
+
         if (InputManager::Instance().IsKeyPressed(Key::kNum6))
             return std::make_unique<Platformer::SortingLayerTestLevel>();
 #endif

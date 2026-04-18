@@ -1,8 +1,9 @@
-#include <terme/entities/level.h>
-#include <terme/core/simulation.h>
+#include "sorting_layer_test_level.h"
+
 #include "bunny.h"
 #include "sorting_layer_test_object.h"
-#include "sorting_layer_test_level.h"
+
+#include <terme/core/simulation.h>
 
 #include <memory>
 #include <utility>
@@ -31,7 +32,7 @@ namespace Platformer
                 5,      //sizey
                 '#',    //char
                 terme::color::kRed,
-            200     //sorting layer
+                200     //sorting layer
             );
             simulation.TryAddEntity(std::move(sorting_layer_test_obj_front));
         }

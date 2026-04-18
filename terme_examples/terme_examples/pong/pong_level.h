@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/level.h>
 
 namespace Pong

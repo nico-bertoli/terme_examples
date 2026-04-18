@@ -1,7 +1,9 @@
 #pragma once
-#include <terme/entities/level.h>
-#include <typeinfo>
+
 #include <memory>
+#include <typeinfo>
+
+#include <terme/entities/level.h>
 
 namespace SpaceInvaders
 {
@@ -50,7 +52,7 @@ namespace SpaceInvaders
         bool IsLoadingWave() { return is_loading_wave_; }
 
     protected:
-        void Update()override;
+        void Update() override;
         double ShowGameOverScreenDelay() const override { return 0.2; }
         const char* GetPersistenceFilePath() override { return "resources/scores/space_invaders.txt"; }
         const char* GetGameOverWindowPath() override { return "resources/game_over_windows/space_invaders.txt"; }

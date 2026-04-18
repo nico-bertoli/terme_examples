@@ -1,4 +1,5 @@
 #pragma once
+
 #include "alien.h"
 
 namespace SpaceInvaders

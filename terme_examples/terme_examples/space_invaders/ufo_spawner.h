@@ -1,7 +1,7 @@
 #pragma once
-#include <terme/entities/i_simulation_entity.h>
+
 #include <terme/core/direction.h>
-#include <nbkit/random_utils.h>
+#include <terme/entities/i_simulation_entity.h>
 
 namespace SpaceInvaders
 {
@@ -14,17 +14,16 @@ namespace SpaceInvaders
 
 		//---------------------------------------------------------- Fields
 	private:
-		int xSpawnPos;
-		int ySpawnPos;
-		terme::Direction ufoMoveDirection;
-		double lastTimeSpawned = -1;
-		double nextSpawnTime = -1;
+		int x_spawn_pos_;
+		int y_spawn_pos_;
+		terme::Direction ufo_move_direction_;
+		double next_spawn_time_ = -1;
 
 		//---------------------------------------------------------- Methods
 	public:
-		UfoSpawner(int xSpawnPos, int ySpawnPos, terme::Direction ufoMoveDirection);
+		UfoSpawner(int x_spawn_pos, int y_spawn_pos, terme::Direction ufo_move_direction);
 	protected:
-		void Update()override;
+		void Update() override;
 	private:
 		void SetNextSpawnDelay();
 	};

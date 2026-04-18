@@ -1,10 +1,12 @@
 #include "bunny.h"
+
+#include "obstacle.h"
+
+#include <terme/core/simulation.h>
 #include <terme/entities/level.h>
 #include <terme/input_manager/input_manager.h>
-#include <terme/managers/time_manager.h>
 #include <terme/managers/audio_manager.h>
-#include <terme/core/simulation.h>
-#include "obstacle.h"
+#include <terme/managers/time_manager.h>
 
 using terme::Model;
 using terme::Direction;
@@ -91,7 +93,7 @@ namespace Platformer
         SetState(State::kIdle);
         ActivateLeftModels(true);
         previous_position_x_ = GetPosX();
-        on_move.Subscribe([this](terme::GameObject*, Direction dir) { OnMoveCallback(dir); });
+        on_move_.Subscribe([this](terme::GameObject*, Direction dir) { OnMoveCallback(dir); });
     }
 
     void Bunny::Update()
@@ -100,7 +102,7 @@ namespace Platformer
 
         SwitchWalkIdleState();
 
-        if (state == State::kWalking && GetPosX() != previous_position_x_)
+        if (state_ == State::kWalking && GetPosX() != previous_position_x_)
         {
             previous_position_x_ = GetPosX();
             bool is_time_for_left_model = terme::TimeManager::Instance().IsTimeForFirstOfTwoModels(kStepAnimEverySeconds);
@@ -126,7 +128,7 @@ namespace Platformer
 
     void Bunny::UpdateModel()
     {
-        switch (state)
+        switch (state_)
         {
         case State::kDefeated:
             SetModel(kModelDefeated);
@@ -151,11 +153,11 @@ namespace Platformer
     {
         if (terme::TimeManager::Instance().GetTime() - last_time_moved_on_x_ > 0.2)
         {
-            if (state == State::kWalking)
+            if (state_ == State::kWalking)
                 SetState(State::kIdle);
             return;
         }
-        else if (state == State::kIdle)
+        else if (state_ == State::kIdle)
         {
             SetState(State::kWalking);
         }
@@ -169,7 +171,7 @@ namespace Platformer
             SetState(State::kWalking);
 
 
-        switch (state)
+        switch (state_)
         {
         case State::kIdle:
         case State::kWalking:
@@ -203,7 +205,7 @@ namespace Platformer
         bool is_pressing_a = terme::InputManager::Instance().IsKeyPressed(terme::Key::kA);
         bool is_pressing_d = terme::InputManager::Instance().IsKeyPressed(terme::Key::kD);
 
-        if ((is_pressing_a && is_pressing_d) || state == State::kDefeated)
+        if ((is_pressing_a && is_pressing_d) || state_ == State::kDefeated)
             return;
 
         if (is_pressing_a)
@@ -214,15 +216,15 @@ namespace Platformer
 
     void Bunny::SetState(State new_state)
     {
-        if (state == new_state)
+        if (state_ == new_state)
             return;
 
-        if (state == State::kDefeated)
+        if (state_ == State::kDefeated)
             return;
 
-        HandleSounds(state, new_state);
+        HandleSounds(state_, new_state);
 
-        state = new_state;
+        state_ = new_state;
     }
 
     void Bunny::HandleSounds(State old_state, State new_state)
@@ -233,10 +235,10 @@ namespace Platformer
 
     double Bunny::GetGravityScale() const
     {
-        if (state == State::kJumpingUp)
+        if (state_ == State::kJumpingUp)
             return 0;
 
-        if (terme::InputManager::Instance().IsKeyPressed(terme::Key::kSpace) && state == State::kJumpingDown)
+        if (terme::InputManager::Instance().IsKeyPressed(terme::Key::kSpace) && state_ == State::kJumpingDown)
             return kMoveDownControlledSpeed;
 
         return kMoveDownSpeed;
@@ -263,7 +265,7 @@ namespace Platformer
             SetState(State::kIdle);
             break;
         case Direction::kUp:
-            if (state == State::kJumpingUp)
+            if (state_ == State::kJumpingUp)
                 SetState(State::kJumpingDown);
             break;
         }

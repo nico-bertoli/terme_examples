@@ -1,7 +1,9 @@
 #pragma once
+
+#include <string>
+
 #include <terme/entities/collider.h>
 #include <terme/general/vector2_int.h>
-#include <string>
 
 namespace Platformer
 {
@@ -45,7 +47,7 @@ namespace Platformer
     public:
         nbkit::Event<> on_obstacle_hit;
     private:
-        State state;
+        State state_;
         double last_time_moved_on_x_ = 0;
         int previous_position_x_;
         int jump_starting_y_ = -1;
@@ -67,7 +69,7 @@ namespace Platformer
         void InitModel() override { SetModel(kModelIdleLeft); }
 
     private:
-        bool IsJumping() const { return state == State::kJumpingDown || state == State::kJumpingUp; }
+        bool IsJumping() const { return state_ == State::kJumpingDown || state_ == State::kJumpingUp; }
         void SetState(State new_state);
         void UpdateModel();
         void SwitchWalkIdleState();
@@ -75,7 +77,7 @@ namespace Platformer
         void HandleHorizontalMovement();
         void HandleSounds(State old_state, State new_state);
         bool IsTouchingGround() { return collisions_[terme::Direction::kDown].size() > 0; }
-        bool IsJumping() { return state == State::kJumpingDown || state == State::kJumpingUp; }
+        bool IsJumping() { return state_ == State::kJumpingDown || state_ == State::kJumpingUp; }
         void ActivateLeftModels(bool activate);
         void OnMoveCallback(terme::Direction dir);
     };

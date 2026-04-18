@@ -1,11 +1,15 @@
 #include "obstacles_spawner.h"
-#include "obstacle.h"
-#include <terme/core/simulation.h>
-#include <terme/managers/time_manager.h>
-#include <nbkit/random_utils.h>
-#include <terme/entities/collider.h>
-#include <cstdlib>
 
+#include "obstacle.h"
+
+#include <terme/core/simulation.h>
+#include <terme/entities/collider.h>
+#include <terme/managers/time_manager.h>
+
+#include <nbkit/random_utils.h>
+
+#include <cassert>
+#include <cstdlib>
 #include <memory>
 #include <utility>
 

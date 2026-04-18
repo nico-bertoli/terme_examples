@@ -1,12 +1,17 @@
 #include "pong_ball.h"
+
 #include "pong_bar.h"
+#include "pong_level.h"
+
 #include <terme/core/simulation.h>
 #include <terme/managers/audio_manager.h>
-#include "pong_level.h"
+
 #include <nbkit/random_utils.h>
 
-using terme::Model;
+#include <cmath>
+
 using terme::Direction;
+using terme::Model;
 
 namespace Pong
 {
@@ -47,7 +52,7 @@ namespace Pong
         if (collision_dir == Direction::kUp || collision_dir == Direction::kDown)
         {
             y_speed_ = -y_speed_;
-            
+
             PongBar* collider_bar = dynamic_cast<PongBar*>(other);
             if (collider_bar != nullptr)
                 HandleBarCollision(collider_bar);

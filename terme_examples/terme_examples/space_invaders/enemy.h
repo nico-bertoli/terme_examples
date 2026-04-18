@@ -1,4 +1,5 @@
 #pragma once
+
 #include <terme/entities/collider.h>
 
 namespace SpaceInvaders
@@ -9,7 +10,7 @@ namespace SpaceInvaders
 	public:
 		using Collider::Collider;
 	protected:
-		bool isFirsAnimationFrameTime_;
+		bool is_first_animation_frame_time_;
 
 		//------------------------------------------------------ Methods
 	public:

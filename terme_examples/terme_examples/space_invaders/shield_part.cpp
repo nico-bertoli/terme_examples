@@ -1,7 +1,9 @@
 #include "shield_part.h"
-#include <terme/core/simulation.h>
+
 #include "alien.h"
 #include "projectile.h"
+
+#include <terme/core/simulation.h>
 #include <terme/managers/audio_manager.h>
 
 using terme::Direction;

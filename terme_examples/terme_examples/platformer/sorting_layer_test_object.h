@@ -1,6 +1,8 @@
 #pragma once
-#include <terme/entities/game_object.h>
+
 #include <optional>
+
+#include <terme/entities/game_object.h>
 
 namespace Platformer
 {
@@ -37,6 +39,6 @@ namespace Platformer
 
 	protected:
 		void InitModel() override;
-		void Update()override;
+		void Update() override;
 	};
 }

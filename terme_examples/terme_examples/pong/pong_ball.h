@@ -1,5 +1,6 @@
 #pragma once
-#include <terme/entities/collider.h>	
+
+#include <terme/entities/collider.h>
 #include <terme/general/vector2_int.h>
 
 namespace Pong

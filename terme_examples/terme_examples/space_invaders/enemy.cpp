@@ -1,7 +1,10 @@
 #include "enemy.h"
-#include <terme/managers/time_manager.h>
-#include <terme/core/simulation.h>
+
 #include "space_invaders_level.h"
+
+#include <terme/core/simulation.h>
+
+#include <cassert>
 
 namespace SpaceInvaders
 {

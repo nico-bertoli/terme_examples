@@ -1,7 +1,8 @@
 #include "pong_bar.h"
-#include <terme/input_manager/input_manager.h>
+
 #include <terme/core/simulation.h>
 #include <terme/entities/level.h>
+#include <terme/input_manager/input_manager.h>
 
 using terme::Direction;
 
@@ -30,7 +31,7 @@ namespace Pong
         if (terme::Simulation::Instance().GetActiveLevel().IsGameOver())
             return;
 
-        if ((is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kA)) || !is_bottom_bar_ && terme::InputManager::Instance().terme::InputManager::Instance().IsKeyPressed(terme::Key::kArrowLeft))
+        if ((is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kA)) || (!is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kArrowLeft)))
             TryMove(Direction::kLeft, move_speed_);
         else if ((is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kD)) || (!is_bottom_bar_ && terme::InputManager::Instance().IsKeyPressed(terme::Key::kArrowRight)))
             TryMove(Direction::kRight, move_speed_);

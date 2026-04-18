@@ -1,7 +1,9 @@
 #include "pong_level.h"
-#include <terme/core/simulation.h>
-#include "pong_bar.h"
+
 #include "pong_ball.h"
+#include "pong_bar.h"
+
+#include <terme/core/simulation.h>
 #include <terme/managers/audio_manager.h>
 #include <terme/printers/ui_printer.h>
 
