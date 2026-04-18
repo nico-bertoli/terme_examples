@@ -57,7 +57,7 @@ namespace SpaceInvaders
 		string eliminations_boost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
 		string wave_boost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
 		string debug_str = tot_boost + " | " + eliminations_boost + " | " + wave_boost;
-		terme::DebugManager::Instance().PrintGenericLog(debug_str, 0);
+		terme::DebugManager::Instance().Log(debug_str);
 #endif
 
 		HandleMovement();
