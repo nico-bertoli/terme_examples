@@ -12,9 +12,6 @@
 
 namespace Pong
 {
-	size_t PongLevel::score_player_1_ = 0;
-	size_t PongLevel::score_player_2_ = 0;
-
 	void PongLevel::LoadInSimulation()
 	{
 		terme::Level::LoadInSimulation();
