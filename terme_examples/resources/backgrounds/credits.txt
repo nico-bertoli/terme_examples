@@ -1,0 +1,4 @@
+endless_runner.txt was adapted from ASCII artwork by Joan G. Stark (jgs).
+Mirror of the referenced piece: https://www.asciiart.eu/art/ec00171f6c37d765
+Joan G. Stark's archived gallery: https://oldcompcz.github.io/jgs/joan_stark/
+Usage guidelines (personal, non-commercial use): https://oldcompcz.github.io/jgs/joan_stark/please.html
