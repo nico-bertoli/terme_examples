@@ -47,7 +47,7 @@ namespace Platformer
     public:
         nbkit::Event<> on_obstacle_hit;
     private:
-        State state_;
+        State state_ = State::kIdle;
         double last_time_moved_on_x_ = 0;
         int previous_position_x_;
         int jump_starting_y_ = -1;
