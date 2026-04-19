@@ -91,10 +91,25 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
 
 
     cout << "\n\n\n\n--------------------------- Credits:\n";
-    cout << "Terme engine github: https://github.com/nico-bertoli/terme\n";
-    cout << "Levels github: https://github.com/nico-bertoli/terme_examples\n";
-    cout << "Developer: https://nico-bertoli.github.io/index.html\n";
-    cout << "Music: https://www.youtube.com/@CodyOQuinn\n";
+    cout << "Terme engine github: ";
+    Terminal::Instance().SetColor(terme::color::kCyan);
+    cout << "https://github.com/nico-bertoli/terme\n";
+    Terminal::Instance().SetColor(terme::color::kWhite);
+
+    cout << "Levels github: ";
+    Terminal::Instance().SetColor(terme::color::kCyan);
+    cout << "https://github.com/nico-bertoli/terme_examples\n";
+    Terminal::Instance().SetColor(terme::color::kWhite);
+
+    cout << "Developer: ";
+    Terminal::Instance().SetColor(terme::color::kCyan);
+    cout << "https://nico-bertoli.github.io/index.html\n";
+    Terminal::Instance().SetColor(terme::color::kWhite);
+
+    cout << "Music: ";
+    Terminal::Instance().SetColor(terme::color::kCyan);
+    cout << "https://www.youtube.com/@CodyOQuinn\n";
+    Terminal::Instance().SetColor(terme::color::kWhite);
 
     while (true)
     {
