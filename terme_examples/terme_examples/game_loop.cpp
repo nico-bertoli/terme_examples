@@ -90,13 +90,13 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
     cout << "Controls: move: wasd, action: space bar";
 
 
-    cout << "\n\n\n\n--------------------------- Credits:\n";
-    cout << "Terme engine github: ";
+    cout << "\n\n\n\n--------------------------- Project links:\n";
+    cout << "Terme engine: ";
     Terminal::Instance().SetColor(terme::color::kCyan);
     cout << "https://github.com/nico-bertoli/terme\n";
     Terminal::Instance().SetColor(terme::color::kWhite);
 
-    cout << "Levels github: ";
+    cout << "Levels: ";
     Terminal::Instance().SetColor(terme::color::kCyan);
     cout << "https://github.com/nico-bertoli/terme_examples\n";
     Terminal::Instance().SetColor(terme::color::kWhite);
@@ -106,9 +106,15 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
     cout << "https://nico-bertoli.github.io/index.html\n";
     Terminal::Instance().SetColor(terme::color::kWhite);
 
-    cout << "Music: ";
+    cout << "\n--------------------------- Credits:\n";
+    cout << "Music: by Cody O'Quinn ";
     Terminal::Instance().SetColor(terme::color::kCyan);
     cout << "https://www.youtube.com/@CodyOQuinn\n";
+    Terminal::Instance().SetColor(terme::color::kWhite);
+
+    cout << "Background ASCII adapted from Joan G. Stark (jgs): ";
+    Terminal::Instance().SetColor(terme::color::kCyan);
+    cout << "https://oldcompcz.github.io/jgs/joan_stark/\n";
     Terminal::Instance().SetColor(terme::color::kWhite);
 
     while (true)
