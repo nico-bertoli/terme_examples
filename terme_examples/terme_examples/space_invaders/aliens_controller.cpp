@@ -35,7 +35,7 @@ namespace SpaceInvaders
 
 	double AliensController::GetEliminatedAliensMultiplier()const
 	{
-		return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount() - 1);
+				return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount() - 1);
 	}
 
 	double AliensController::GetWaveMultiplier()const
@@ -52,13 +52,13 @@ namespace SpaceInvaders
 
 	void AliensController::Update()
 	{
-#if DEBUG
-		string tot_boost = "tot boost: " + std::to_string(GetSpeedX());
-		string eliminations_boost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
-		string wave_boost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
-		string debug_str = tot_boost + " | " + eliminations_boost + " | " + wave_boost;
-		terme::DebugManager::Instance().Log(debug_str);
-#endif
+// #if DEBUG
+// 		string tot_boost = "tot boost: " + std::to_string(GetSpeedX());
+// 		string eliminations_boost = " elim. multiplier:" + std::to_string(GetEliminatedAliensMultiplier());
+// 		string wave_boost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
+// 		string debug_str = tot_boost + " | " + eliminations_boost + " | " + wave_boost;
+// 		terme::DebugManager::Instance().Log(debug_str);
+// #endif
 
 		HandleMovement();
 		HandleShooting();

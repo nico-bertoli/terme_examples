@@ -21,7 +21,7 @@ namespace SpaceInvaders
 	{
 		//------------------------------------------------------------------- Aliens Settings
 //movement
-		static constexpr double kBaseMoveSpeed = 0.5;
+		static constexpr double kBaseMoveSpeed = 1;
 		static constexpr double kAllAliensEliminatedMoveSpeedIncrement = 16;
 		static constexpr double kWaveNumberSpeedIncreaseFactor = 1;
 
